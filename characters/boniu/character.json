@@ -1,0 +1,870 @@
+{
+  "schemaVersion": 1,
+  "id": "boniu",
+  "name": "波妞 Boniu",
+  "description": "戴粉色蝴蝶结、温柔好奇的小女马",
+  "size": {
+    "width": 256,
+    "height": 256
+  },
+  "assets": {
+    "atlas": {
+      "src": "./atlas.png",
+      "width": 3072,
+      "height": 1792
+    },
+    "portrait": {
+      "src": "./base.png",
+      "width": 256,
+      "height": 256
+    }
+  },
+  "base": {
+    "asset": "portrait"
+  },
+  "defaultReaction": "idle",
+  "reactions": {
+    "idle": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "thinking": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            256,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            256,
+            256,
+            256
+          ],
+          "duration": 500
+        }
+      ],
+      "loop": true,
+      "poster": 5
+    },
+    "notification": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            512,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            512,
+            256,
+            256
+          ],
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "success": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            768,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            768,
+            256,
+            256
+          ],
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "warning": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            1024,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            1024,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            1024,
+            256,
+            256
+          ],
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "sad": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            1280,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            1280,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            1280,
+            256,
+            256
+          ],
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "sleepy": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            1536,
+            256,
+            256
+          ],
+          "duration": 180
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            1536,
+            256,
+            256
+          ],
+          "duration": 120
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            1536,
+            256,
+            256
+          ],
+          "duration": 120
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            1536,
+            256,
+            256
+          ],
+          "duration": 300
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            1536,
+            256,
+            256
+          ],
+          "duration": 600
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            1536,
+            256,
+            256
+          ],
+          "duration": 300
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            1536,
+            256,
+            256
+          ],
+          "duration": 120
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            1536,
+            256,
+            256
+          ],
+          "duration": 300
+        }
+      ],
+      "loop": false,
+      "poster": 4
+    }
+  }
+}

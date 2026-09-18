@@ -1,0 +1,5 @@
+export { createCompanion, CompanionController } from './controller.js'
+export { defineCharacter, loadCharacter, sampleReaction } from './character.js'
+export { connectAgent } from './agent.js'
+export type { AgentBindingOptions } from './agent.js'
+export type * from './types.js'

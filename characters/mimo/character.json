@@ -1,0 +1,834 @@
+{
+  "schemaVersion": 1,
+  "id": "mimo",
+  "name": "米莫 Mimo",
+  "description": "奶油白机壳、薄荷耳罩与发光表情的口袋机器人",
+  "size": {
+    "width": 240,
+    "height": 240
+  },
+  "assets": {
+    "idle-0": {
+      "src": "./frames/idle-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-1": {
+      "src": "./frames/idle-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-2": {
+      "src": "./frames/idle-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-3": {
+      "src": "./frames/idle-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-4": {
+      "src": "./frames/idle-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-5": {
+      "src": "./frames/idle-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-6": {
+      "src": "./frames/idle-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-7": {
+      "src": "./frames/idle-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-8": {
+      "src": "./frames/idle-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-9": {
+      "src": "./frames/idle-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-10": {
+      "src": "./frames/idle-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "idle-11": {
+      "src": "./frames/idle-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-0": {
+      "src": "./frames/thinking-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-1": {
+      "src": "./frames/thinking-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-2": {
+      "src": "./frames/thinking-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-3": {
+      "src": "./frames/thinking-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-4": {
+      "src": "./frames/thinking-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-5": {
+      "src": "./frames/thinking-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-6": {
+      "src": "./frames/thinking-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-7": {
+      "src": "./frames/thinking-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-8": {
+      "src": "./frames/thinking-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-9": {
+      "src": "./frames/thinking-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-10": {
+      "src": "./frames/thinking-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "thinking-11": {
+      "src": "./frames/thinking-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-0": {
+      "src": "./frames/notification-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-1": {
+      "src": "./frames/notification-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-2": {
+      "src": "./frames/notification-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-3": {
+      "src": "./frames/notification-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-4": {
+      "src": "./frames/notification-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-5": {
+      "src": "./frames/notification-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-6": {
+      "src": "./frames/notification-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-7": {
+      "src": "./frames/notification-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-8": {
+      "src": "./frames/notification-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-9": {
+      "src": "./frames/notification-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-10": {
+      "src": "./frames/notification-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "notification-11": {
+      "src": "./frames/notification-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-0": {
+      "src": "./frames/success-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-1": {
+      "src": "./frames/success-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-2": {
+      "src": "./frames/success-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-3": {
+      "src": "./frames/success-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-4": {
+      "src": "./frames/success-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-5": {
+      "src": "./frames/success-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-6": {
+      "src": "./frames/success-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-7": {
+      "src": "./frames/success-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-8": {
+      "src": "./frames/success-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-9": {
+      "src": "./frames/success-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-10": {
+      "src": "./frames/success-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "success-11": {
+      "src": "./frames/success-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-0": {
+      "src": "./frames/warning-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-1": {
+      "src": "./frames/warning-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-2": {
+      "src": "./frames/warning-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-3": {
+      "src": "./frames/warning-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-4": {
+      "src": "./frames/warning-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-5": {
+      "src": "./frames/warning-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-6": {
+      "src": "./frames/warning-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-7": {
+      "src": "./frames/warning-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-8": {
+      "src": "./frames/warning-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-9": {
+      "src": "./frames/warning-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-10": {
+      "src": "./frames/warning-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "warning-11": {
+      "src": "./frames/warning-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-0": {
+      "src": "./frames/sad-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-1": {
+      "src": "./frames/sad-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-2": {
+      "src": "./frames/sad-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-3": {
+      "src": "./frames/sad-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-4": {
+      "src": "./frames/sad-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-5": {
+      "src": "./frames/sad-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-6": {
+      "src": "./frames/sad-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-7": {
+      "src": "./frames/sad-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-8": {
+      "src": "./frames/sad-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-9": {
+      "src": "./frames/sad-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-10": {
+      "src": "./frames/sad-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "sad-11": {
+      "src": "./frames/sad-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-0": {
+      "src": "./frames/dance-0.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-1": {
+      "src": "./frames/dance-1.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-2": {
+      "src": "./frames/dance-2.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-3": {
+      "src": "./frames/dance-3.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-4": {
+      "src": "./frames/dance-4.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-5": {
+      "src": "./frames/dance-5.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-6": {
+      "src": "./frames/dance-6.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-7": {
+      "src": "./frames/dance-7.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-8": {
+      "src": "./frames/dance-8.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-9": {
+      "src": "./frames/dance-9.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-10": {
+      "src": "./frames/dance-10.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-11": {
+      "src": "./frames/dance-11.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-12": {
+      "src": "./frames/dance-12.svg",
+      "width": 240,
+      "height": 240
+    },
+    "dance-13": {
+      "src": "./frames/dance-13.svg",
+      "width": 240,
+      "height": 240
+    }
+  },
+  "base": {
+    "asset": "idle-0"
+  },
+  "defaultReaction": "idle",
+  "reactions": {
+    "idle": {
+      "frames": [
+        {
+          "asset": "idle-0",
+          "duration": 1700
+        },
+        {
+          "asset": "idle-1",
+          "duration": 100
+        },
+        {
+          "asset": "idle-2",
+          "duration": 100
+        },
+        {
+          "asset": "idle-3",
+          "duration": 100
+        },
+        {
+          "asset": "idle-4",
+          "duration": 100
+        },
+        {
+          "asset": "idle-5",
+          "duration": 100
+        },
+        {
+          "asset": "idle-6",
+          "duration": 100
+        },
+        {
+          "asset": "idle-7",
+          "duration": 100
+        },
+        {
+          "asset": "idle-8",
+          "duration": 100
+        },
+        {
+          "asset": "idle-9",
+          "duration": 100
+        },
+        {
+          "asset": "idle-10",
+          "duration": 100
+        },
+        {
+          "asset": "idle-11",
+          "duration": 500
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "thinking": {
+      "frames": [
+        {
+          "asset": "thinking-0",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-1",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-2",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-3",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-4",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-5",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-6",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-7",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-8",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-9",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-10",
+          "duration": 100
+        },
+        {
+          "asset": "thinking-11",
+          "duration": 500
+        }
+      ],
+      "loop": true,
+      "poster": 5
+    },
+    "notification": {
+      "frames": [
+        {
+          "asset": "notification-0",
+          "duration": 100
+        },
+        {
+          "asset": "notification-1",
+          "duration": 100
+        },
+        {
+          "asset": "notification-2",
+          "duration": 100
+        },
+        {
+          "asset": "notification-3",
+          "duration": 100
+        },
+        {
+          "asset": "notification-4",
+          "duration": 100
+        },
+        {
+          "asset": "notification-5",
+          "duration": 100
+        },
+        {
+          "asset": "notification-6",
+          "duration": 100
+        },
+        {
+          "asset": "notification-7",
+          "duration": 100
+        },
+        {
+          "asset": "notification-8",
+          "duration": 100
+        },
+        {
+          "asset": "notification-9",
+          "duration": 100
+        },
+        {
+          "asset": "notification-10",
+          "duration": 100
+        },
+        {
+          "asset": "notification-11",
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "success": {
+      "frames": [
+        {
+          "asset": "success-0",
+          "duration": 100
+        },
+        {
+          "asset": "success-1",
+          "duration": 100
+        },
+        {
+          "asset": "success-2",
+          "duration": 100
+        },
+        {
+          "asset": "success-3",
+          "duration": 100
+        },
+        {
+          "asset": "success-4",
+          "duration": 100
+        },
+        {
+          "asset": "success-5",
+          "duration": 100
+        },
+        {
+          "asset": "success-6",
+          "duration": 100
+        },
+        {
+          "asset": "success-7",
+          "duration": 100
+        },
+        {
+          "asset": "success-8",
+          "duration": 100
+        },
+        {
+          "asset": "success-9",
+          "duration": 100
+        },
+        {
+          "asset": "success-10",
+          "duration": 100
+        },
+        {
+          "asset": "success-11",
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "warning": {
+      "frames": [
+        {
+          "asset": "warning-0",
+          "duration": 100
+        },
+        {
+          "asset": "warning-1",
+          "duration": 100
+        },
+        {
+          "asset": "warning-2",
+          "duration": 100
+        },
+        {
+          "asset": "warning-3",
+          "duration": 100
+        },
+        {
+          "asset": "warning-4",
+          "duration": 100
+        },
+        {
+          "asset": "warning-5",
+          "duration": 100
+        },
+        {
+          "asset": "warning-6",
+          "duration": 100
+        },
+        {
+          "asset": "warning-7",
+          "duration": 100
+        },
+        {
+          "asset": "warning-8",
+          "duration": 100
+        },
+        {
+          "asset": "warning-9",
+          "duration": 100
+        },
+        {
+          "asset": "warning-10",
+          "duration": 100
+        },
+        {
+          "asset": "warning-11",
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "sad": {
+      "frames": [
+        {
+          "asset": "sad-0",
+          "duration": 100
+        },
+        {
+          "asset": "sad-1",
+          "duration": 100
+        },
+        {
+          "asset": "sad-2",
+          "duration": 100
+        },
+        {
+          "asset": "sad-3",
+          "duration": 100
+        },
+        {
+          "asset": "sad-4",
+          "duration": 100
+        },
+        {
+          "asset": "sad-5",
+          "duration": 100
+        },
+        {
+          "asset": "sad-6",
+          "duration": 100
+        },
+        {
+          "asset": "sad-7",
+          "duration": 100
+        },
+        {
+          "asset": "sad-8",
+          "duration": 100
+        },
+        {
+          "asset": "sad-9",
+          "duration": 100
+        },
+        {
+          "asset": "sad-10",
+          "duration": 100
+        },
+        {
+          "asset": "sad-11",
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    },
+    "dance": {
+      "frames": [
+        {
+          "asset": "dance-0",
+          "duration": 100
+        },
+        {
+          "asset": "dance-1",
+          "duration": 100
+        },
+        {
+          "asset": "dance-2",
+          "duration": 100
+        },
+        {
+          "asset": "dance-3",
+          "duration": 100
+        },
+        {
+          "asset": "dance-4",
+          "duration": 100
+        },
+        {
+          "asset": "dance-5",
+          "duration": 100
+        },
+        {
+          "asset": "dance-6",
+          "duration": 100
+        },
+        {
+          "asset": "dance-7",
+          "duration": 100
+        },
+        {
+          "asset": "dance-8",
+          "duration": 100
+        },
+        {
+          "asset": "dance-9",
+          "duration": 100
+        },
+        {
+          "asset": "dance-10",
+          "duration": 100
+        },
+        {
+          "asset": "dance-11",
+          "duration": 100
+        },
+        {
+          "asset": "dance-12",
+          "duration": 100
+        },
+        {
+          "asset": "dance-13",
+          "duration": 500
+        }
+      ],
+      "loop": false,
+      "poster": 5
+    }
+  }
+}

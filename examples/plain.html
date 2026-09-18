@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Companion · 原生 HTML 接入</title>
+<style>body{font:15px/1.8 system-ui;background:#faf9f5;color:#405648;max-width:720px;margin:60px auto;padding:20px}button{padding:8px 14px;margin:4px;border:1px solid #cedacd;border-radius:8px;background:white;color:inherit}agent-companion{display:flex;margin:40px auto}pre{white-space:pre-wrap;padding:20px;background:#edf1e8;border-radius:12px}a{color:inherit}</style>
+<h1>一个脚本，一位小伙伴。</h1><p>原生 HTML / controller 示例，没有 React、Vue 或构建步骤。</p>
+<script src="./package/companion.global.js"></script>
+<agent-companion id="friend" size="220" character-src="./assets/bolo/character.json"></agent-companion>
+<button id="think">思考</button><button id="hello">说句话</button><button id="switch">切换波妞</button><pre id="events">点击小马可以发出 tap 事件。</pre>
+<script>
+const friend = document.getElementById('friend');
+document.getElementById('think').onclick = () => friend.react('thinking');
+document.getElementById('hello').onclick = () => friend.say('原生网页，也可以一起工作。');
+document.getElementById('switch').onclick = () => friend.setAttribute('character-src', './assets/boniu/character.json');
+friend.addEventListener('companion-action', event => document.getElementById('events').textContent = JSON.stringify(event.detail));
+</script>
+<p><a href="./">← 返回角色工作室</a></p></html>
