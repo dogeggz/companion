@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
-import { mkdtemp, mkdir, readFile, writeFile, symlink } from 'node:fs/promises'
+import { cp, mkdtemp, mkdir, readFile, readdir, writeFile, symlink } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -20,6 +20,14 @@ const installed = path.join(consumer, 'node_modules/@companion-kit/core')
 const metadata = JSON.parse(await readFile(path.join(installed, 'package.json'), 'utf8'))
 assert.equal(metadata.name, '@companion-kit/core')
 assert.equal(metadata.dependencies, undefined)
+const goudan = JSON.parse(await readFile(path.join(installed, 'dist/assets/goudan/character.json'), 'utf8'))
+assert.equal(goudan.name, '狗蛋')
+for (const asset of Object.values(goudan.assets)) {
+  const png = await readFile(path.join(installed, 'dist/assets/goudan', asset.src))
+  assert.equal(png.readUInt32BE(16), asset.width)
+  assert.equal(png.readUInt32BE(20), asset.height)
+}
+assert.ok(!(await readdir(path.join(installed, 'dist'), { recursive: true })).some(file => /design-reference|review\.(png|svg)|prompts\.md/.test(file)))
 await writeFile(path.join(consumer, 'core.mjs'), `
 import assert from 'node:assert/strict';
 import { createCompanion, defineCharacter } from '@companion-kit/core';
@@ -30,6 +38,7 @@ const c = createCompanion(); c.say('works without a DOM');
 assert.equal(c.getSnapshot().text, 'works without a DOM');
 assert.equal(defineCompanion(), undefined);
 assert.ok(characterUrls.boniu.endsWith('assets/boniu/character.json'));
+assert.ok(characterUrls.goudan.endsWith('assets/goudan/character.json'));
 for (const framework of ['react', 'vue']) {
   try { await import(framework); assert.fail('Unexpected runtime framework dependency'); }
   catch(error) { assert.equal(error.code, 'ERR_MODULE_NOT_FOUND'); }
@@ -56,6 +65,7 @@ console.log('Packed React and Vue adapters render in SSR.');
 `)
 execFileSync(process.execPath, ['ssr.mjs'], { cwd: consumer, stdio: 'inherit' })
 // Build a completely separate consumer from the installed tarball, not project source.
+await cp(path.join(installed, 'dist/assets/goudan'), path.join(root, 'site/packed-assets/goudan'), { recursive: true })
 await writeFile(path.join(consumer, 'main.js'), `
 import {createCompanion,loadCharacter} from '@companion-kit/core';
 import {defineCompanion} from '@companion-kit/core/element';
@@ -64,7 +74,7 @@ import {Companion as VueCompanion} from '@companion-kit/core/vue';
 import {createElement} from 'react'; import {createRoot} from 'react-dom/client';
 import {createApp,h} from 'vue';
 defineCompanion();
-const pack=await loadCharacter(new URL('./assets/bolo/character.json',location.href));
+const pack=await loadCharacter(new URL('./packed-assets/goudan/character.json',location.href));
 const a=createCompanion(pack), b=createCompanion(pack), c=createCompanion(pack);
 document.querySelector('#plain').controller=a;
 const reactRoot=createRoot(document.querySelector('#react')); reactRoot.render(createElement(ReactCompanion,{controller:b,size:120}));

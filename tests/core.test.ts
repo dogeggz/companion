@@ -43,7 +43,7 @@ test('reject invalid packs and resolve asset paths against the manifest', () => 
 })
 
 test('all built-in packs validate, including differing sizes and extra reactions', async () => {
-  for (const name of ['boniu', 'bolo', 'mimo']) {
+  for (const name of ['boniu', 'bolo', 'mimo', 'goudan']) {
     const url = new URL(`../characters/${name}/character.json`, import.meta.url)
     const pack = defineCharacter(JSON.parse(await readFile(url, 'utf8')), url)
     for (const reaction of ['idle', 'thinking', 'notification', 'success', 'warning', 'sad']) assert.ok(pack.reactions[reaction])

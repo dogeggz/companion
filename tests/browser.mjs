@@ -42,7 +42,7 @@ try {
   await page.screenshot({ path: path.join(results, 'studio-desktop.png'), fullPage: true })
 
   const portraits = []
-  for (const character of ['boniu', 'bolo', 'mimo']) {
+  for (const character of ['boniu', 'bolo', 'mimo', 'goudan']) {
     await page.locator(`[data-character="${character}"]`).click()
     await page.waitForFunction(id => document.querySelector('#hero-companion').character?.id === id, character)
     await waitArt()
@@ -56,7 +56,81 @@ try {
       assert.ok(Number(await hero.getAttribute('data-frame')) > 0, `${character}/${reaction} advances`)
     }
   }
-  assert.equal(new Set(portraits).size, 3, 'three distinct characters rendered')
+  assert.equal(new Set(portraits).size, 4, 'four distinct characters rendered')
+  // Check actual exported pixels: alpha margins, pink nose/pads, and no ghost paw.
+  const catArt = await page.evaluate(async () => {
+    const img = new Image(); img.src = './assets/goudan/atlas.png'; await img.decode()
+    const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height
+    const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0)
+    const pixel = (x, y) => [...ctx.getImageData(x, y, 1, 1).data]
+    let cleanEdges = true
+    for (let row = 0; row < 7; row++) for (let col = 0; col < 12; col++) {
+      for (let p = 0; p < 256; p++) for (const [x, y] of [[p, 0], [p, 255], [0, p], [255, p]]) {
+        if (pixel(col*256+x, row*256+y)[3] !== 0) cleanEdges = false
+      }
+    }
+    const settledClips = [1, 2, 4, 5].map(row => {
+      const start = ctx.getImageData(0, row*256, 256, 256).data
+      const end = ctx.getImageData(11*256, row*256, 256, 256).data
+      // SVG atlas translations can change a few antialiased edge values even
+      // with identical geometry. Reject visible shifts, allow that tiny noise.
+      let maximum = 0, total = 0
+      start.forEach((value, i) => { const delta = Math.abs(value-end[i]); maximum = Math.max(maximum, delta); total += delta })
+      return maximum <= 8 && total/start.length < .01
+    })
+    return { cleanEdges, nose: pixel(128, 126), restPaw: pixel(144, 212),
+      oldPaw: pixel(5*256+144, 2*256+212), raisedPad: pixel(5*256+164, 2*256+160),
+      eyeOuter: pixel(87, 110), eyePupil: pixel(101, 111), bib: pixel(128, 160),
+      warningLeft: pixel(5*256+108, 4*256+212), warningRight: pixel(5*256+148, 4*256+212), settledClips }
+  })
+  assert.ok(catArt.cleanEdges, 'all cat cels have transparent, unclipped boundaries')
+  assert.deepEqual(catArt.nose, [255, 173, 184, 255], 'nose is solid pink without a black spot')
+  assert.deepEqual(catArt.raisedPad, [255, 173, 184, 255], 'raised paw has pink pads')
+  assert.deepEqual(catArt.restPaw, [255, 253, 241, 255], 'resting front paw is white')
+  assert.deepEqual(catArt.eyeOuter, [206, 214, 129, 255], 'large green eye keeps the selected reference proportions')
+  assert.deepEqual(catArt.eyePupil, [21, 23, 25, 255], 'reference has broad oval pupils, not tiny dots')
+  assert.deepEqual(catArt.bib, [255, 253, 241, 255], 'white muzzle joins the bib without a dark chin seam')
+  assert.ok(catArt.oldPaw[3] === 255 && catArt.oldPaw.slice(0, 3).every(channel => channel < 85), 'raised front paw leaves a black flank, no spare white paw')
+  assert.deepEqual(catArt.warningLeft, [255, 253, 241, 255], 'warning braces the left paw on the ground')
+  assert.deepEqual(catArt.warningRight, [255, 253, 241, 255], 'warning braces the right paw instead of waving')
+  assert.ok(catArt.settledClips.every(Boolean), 'refined reactions recover to their starting pose without a visual seam')
+  // Compare against the user-selected image, not another hand-authored target.
+  // Same source coordinates expose tilted pupils and a bottom-heavy face.
+  const faceMeasurements = await page.evaluate(async sources => {
+    const measured = []
+    for (const src of sources) {
+      const img = new Image(); img.src = src; await img.decode()
+      const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height
+      const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0)
+      const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      const bounds = (y, left, right, threshold) => {
+        const xs = []
+        for (let x = left; x < right; x++) {
+          const i = (y*canvas.width+x)*4
+          if (Math.max(data[i], data[i+1], data[i+2]) < threshold) xs.push(x)
+        }
+        return [Math.min(...xs), Math.max(...xs)]
+      }
+      measured.push({
+        cheeks: [480, 520, 560, 600, 640, 680, 700].flatMap(y => bounds(y, 30, 590, 130)),
+        pupils: [550, 560, 570].flatMap(y => [[180, 230], [385, 435]].map(([l, r]) => {
+          const [left, right] = bounds(y, l, r, 30); return (left+right)/2
+        })),
+      })
+    }
+    return measured
+  }, [
+    `data:image/png;base64,${(await readFile(path.join(root, 'artwork/goudan/design-reference.png'))).toString('base64')}`,
+    `data:image/svg+xml;base64,${(await readFile(path.join(root, 'artwork/goudan/implemented-poses.svg'))).toString('base64')}`,
+  ])
+  const [referenceFace, actualFace] = faceMeasurements
+  assert.ok(actualFace.cheeks.every((x, i) => Math.abs(x-referenceFace.cheeks[i]) <= 4), 'cheek outline matches the selected image within four source pixels')
+  assert.ok(actualFace.pupils.every((x, i) => Math.abs(x-referenceFace.pupils[i]) <= 1), 'pupil axes remain vertical and aligned with the selected image')
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.evaluate(() => window.companionDemo.controller.react('notification'))
+  await page.waitForFunction(() => document.querySelector('#hero-companion').dataset.frame === '5')
+  await page.locator('.portrait-card').screenshot({ path: path.join(results, 'goudan-wave.png') })
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.locator('[data-character="boniu"]').click(); await waitArt()
   await page.locator('#add-reaction').click()
   assert.ok(await page.locator('[data-reaction="my-high-five"]').count())
@@ -145,6 +219,7 @@ try {
   // This page is built by test:package from a tarball installed in a different directory.
   await page.goto(`${base}consumer.html`, { waitUntil: 'networkidle' })
   await page.waitForFunction(() => window.packedConsumers?.length === 3 && document.querySelectorAll('agent-companion').length === 3)
+  assert.equal(await page.evaluate(() => window.packedConsumers.every(c => c.getSnapshot().character.id === 'goudan')), true)
   await page.evaluate(() => window.packedConsumers.forEach(c => { c.react('thinking'); c.say('Packed package works'); }))
   await page.waitForTimeout(450)
   assert.equal(await page.locator('agent-companion[data-reaction="thinking"]').count(), 3)
@@ -154,7 +229,7 @@ try {
   await page.evaluate(() => window.unmountConsumers())
   assert.equal(await page.locator('agent-companion').count(), 0)
   assert.deepEqual(errors, [])
-  const summary = 'PASS: three characters, all reactions, custom reaction, text safety, keyboard actions, pause/resume, agent success/error/cancel, React/Vue/native consumers, streaming animation, reduced motion, reconnect, 320/390px, nested paths and real tarball installation.'
+  const summary = 'PASS: four characters, all reactions, custom reaction, text safety, keyboard actions, pause/resume, agent success/error/cancel, React/Vue/native consumers, streaming animation, reduced motion, reconnect, 320/390px, nested paths and real tarball installation.'
   await writeFile(path.join(results, 'browser-summary.txt'), summary + '\n')
   console.log(summary)
 } finally {

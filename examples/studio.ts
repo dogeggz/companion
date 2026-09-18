@@ -14,6 +14,7 @@ const titles: Record<string, [string, string, string]> = {
   boniu: ['波妞', 'Boniu', '粉色蝴蝶结，柔软的好奇心。'],
   bolo: ['波洛', 'Bolo', '短翘鬃毛，装着一点小勇气。'],
   mimo: ['米莫', 'Mimo', '小小机器人，也可以有大大的表情。'],
+  goudan: ['狗蛋', 'Goudan', '黑白小礼服，藏着一点小帅气。'],
 }
 const moodNames: Record<string, [string, string, string]> = {
   idle: ['陪伴', 'Just here', '◌'], thinking: ['思考', 'Thinking', '···'],
@@ -29,7 +30,7 @@ function log(text: string) {
   while ($('#event-log').childElementCount > 8) $('#event-log').lastElementChild?.remove()
 }
 let demos: ReturnType<typeof mountReact>[] = []
-let selected: BuiltInCharacter = 'boniu'
+let selected: BuiltInCharacter = 'goudan'
 let ticket = 0
 async function select(name: BuiltInCharacter) {
   const id = ++ticket
@@ -122,7 +123,7 @@ $('#simulate-error').addEventListener('click', () => { controller.resume(); cont
 const vanilla = $<CompanionElement>('#vanilla-demo')
 $('#vanilla-button').addEventListener('click', () => { vanilla.react('thinking'); vanilla.say('Hello from plain HTML.'); $('#vanilla-state').textContent = 'thinking' })
 vanilla.addEventListener('companion-statechange', event => { $('#vanilla-state').textContent = (event as CustomEvent).detail.reaction })
-await select('boniu')
+await select('goudan')
 const pack = packs.get(selected)!
 demos = [mountReact($('#react-demo'), pack), mountVue($('#vue-demo'), pack)]
 window.addEventListener('pagehide', () => binding.cancel())

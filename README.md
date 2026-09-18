@@ -5,9 +5,13 @@ works in a plain controller page, React, or Vue. Character packs supply the
 artwork and arbitrary reactions; your application supplies the intelligence.
 
 Included characters: **波妞 Boniu**, the girl pony with the rose bow;
-**波洛 Bolo**, the boy pony with the mint scarf; and **米莫 Mimo**, a small robot.
+**波洛 Bolo**, the boy pony with the mint scarf; **米莫 Mimo**, a small robot;
+and **狗蛋 Goudan**, a cheeky tuxedo boy cat with green eyes, a pink nose and
+pink paw pads. The studio opens with Goudan selected.
 Both ponies have idle, thinking, notification, success, warning, sad, and sleepy
-animations. Mimo uses separate SVG frames and adds a dance reaction. These are
+animations. Goudan has the same seven reactions, drawn as flat vector cels and
+exported to a transparent PNG atlas. Mimo uses separate SVG frames and adds a
+dance reaction. These are
 v0.1 art concepts; the names are suggestions, not locked branding.
 
 ## Package and development
@@ -199,7 +203,12 @@ to source. The browser suite exercises the three
 consumers, all character packs, command/event flow, reduced motion, disconnects,
 and asset loading under a nested URL prefix. Build tools are development-only.
 
-`bun run artwork` rebuilds the source SVG cels and pony PNG atlases. Python 3
+`bun run artwork` rebuilds the source SVG cels and pony/cat PNG atlases. Python 3
 uses only its standard library; rasterization uses Playwright Chromium. Checked
 in assets mean consumers never need Python or Playwright. Original artwork and
 provenance are recorded in [NOTICE.md](NOTICE.md).
+
+Goudan's editable rig is `artwork/cat.py`. Its design reference and review sheet
+live in `artwork/goudan/`, outside the runtime assets. Load it using
+`loadBuiltInCharacter('goudan', { assetBaseUrl })` or serve
+`assets/goudan/character.json` with its neighboring PNG files.

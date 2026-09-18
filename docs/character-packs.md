@@ -82,3 +82,10 @@ cels per clip, with a porcelain shell, layered face display and articulated hand
 AI reference editing can assist a different art style, but independently
 generating each frame from a prompt is not the consistency mechanism. The
 approved master and frame review remain the source of truth.
+
+Goudan uses a 256 px flat-vector rig with seven 12-cel clips (84 total), exported
+to a PNG atlas. The AI-assisted design reference stays in `artwork/goudan/`.
+`artwork/cat.py` redraws the tail, ears, face and two front legs consistently;
+a raised paw replaces its resting pose rather than adding an extra limb.
+The same artwork command generates a review sheet on light/dark backgrounds
+at 64, 96 and 144 px. Review material is outside the shipped character directory.
