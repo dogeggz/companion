@@ -201,3 +201,35 @@ test('host-defined harness states map to arbitrary character reactions', async (
   assert.equal(companion.getSnapshot().reaction,reaction)
   binding.disconnect()
 })
+
+
+for (const [label, updates, expected] of [
+  ['text only', [{type:'state',name:'thinking'},{type:'delta',text:'Done'},{type:'state',name:'completed'}], 'idle'],
+  ['tool-only emotion then model continuation', [{type:'state',name:'tool_running'},{type:'reaction',name:'sad'},{type:'state',name:'thinking'},{type:'delta',text:'Done'},{type:'state',name:'completed'}], 'sad'],
+  ['thinking tool is transient', [{type:'reaction',name:'thinking'},{type:'delta',text:'Done'}], 'idle'],
+  ['explicit success remains', [{type:'reaction',name:'success'},{type:'state',name:'completed'}], 'success'],
+] as const) {
+  test('agent completion settles progress: '+label, async () => {
+    const companion = createCompanion(fixture())
+    const adapter = createSSEAgent({endpoint:'/chat',fetch:async()=>new Response(
+      [...updates,{type:'done'}].map(e=>'data: '+JSON.stringify(e)+'\n\n').join(''),
+      {headers:{'Content-Type':'text/event-stream'}})})
+    const binding = connectAgent(companion,adapter,{success:'idle',states:{thinking:'thinking',tool_running:'thinking'}})
+    companion.ask('question'); await flush(); await flush()
+    assert.equal(companion.getSnapshot().reaction,expected)
+    binding.disconnect()
+  })
+}
+
+test('cancel clears custom transient states without clobbering a newer host reaction', async () => {
+  const companion = createCompanion(fixture())
+  const binding = connectAgent(companion,async function* (request) {
+    yield {type:'state',name:'inventory_lookup'}
+    await new Promise<void>(resolve=>request.signal.addEventListener('abort',()=>resolve(),{once:true}))
+  },{states:{inventory_lookup:'sad'},transientStates:['inventory_lookup']})
+  companion.ask('first');await flush();assert.equal(companion.getSnapshot().reaction,'sad')
+  binding.cancel();assert.equal(companion.getSnapshot().reaction,'idle')
+  companion.ask('second');await flush();companion.react('success')
+  binding.cancel();assert.equal(companion.getSnapshot().reaction,'success')
+  binding.disconnect()
+})

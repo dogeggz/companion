@@ -1,6 +1,6 @@
 {
   "name": "@companion-kit/core",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Portable sprite companions, character packs and agent events for the web",
   "type": "module",
   "main": "./dist/index.js",

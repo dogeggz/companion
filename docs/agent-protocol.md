@@ -127,3 +127,12 @@ The core does not decode, store or replay the token. The host chooses account
 isolation, verification, persistence, and a request body field for the next turn.
 
 Named lifecycle states use `{"type":"state","name":"tool_running"}` and are mapped via `connectAgent(..., {states: {tool_running: "your-reaction"}})`. State and reaction names are host-defined. `{"type":"metadata","name":"tool-progress","data":{}}` reaches optional `onMetadata` as inert data, never as executable DOM instructions. The server sends `checkpoint` followed by `done` only after a successful turn.
+
+
+Completion semantics: `thinking` and `tool_running` are transient states by default;
+the configured thinking reaction is also transient even if emitted as `reaction`.
+A successful stream restores the latest explicit non-transient reaction if a later
+progress state covered it, otherwise uses `success` (set `success: "idle"` for a
+neutral completion). Configure `transientStates` / `transientReactions` for custom
+names. Completed one-shot emotions are not replayed unless a later progress state
+covered them. Cancellation clears only progress still owned by that request.
