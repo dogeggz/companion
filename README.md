@@ -6,13 +6,13 @@ artwork and arbitrary reactions; your application supplies the intelligence.
 
 Included characters: **波妞 Boniu**, the girl pony with the rose bow;
 **波洛 Bolo**, the boy pony with the mint scarf; **米莫 Mimo**, a small robot;
-and **狗蛋 Goudan**, a cheeky tuxedo boy cat with green eyes, a pink nose and
-pink paw pads. The studio opens with Goudan selected.
+and **狗蛋 Dogegg**, a cheeky tuxedo boy cat with green eyes, a pink nose and
+pink paw pads. The studio opens with Dogegg selected.
 Both ponies have idle, thinking, notification, success, warning, sad, and sleepy
-animations. Goudan has the same seven reactions, drawn as flat vector cels and
+animations. Dogegg has the same seven reactions, drawn as flat vector cels and
 exported to a transparent PNG atlas. Mimo uses separate SVG frames and adds a
 dance reaction. These are
-v0.1 art concepts; the names are suggestions, not locked branding.
+v0.2 art concepts; the names are suggestions, not locked branding.
 
 ## Package and development
 
@@ -33,9 +33,10 @@ This package is not published to a registry. To consume the actual artifact:
 
 ```sh
 # In this project, after building:
-bun pm pack
-# In another project, install the resulting file:
-bun add /path/to/companion-kit-core-0.1.0.tgz
+bun run pack:all
+# In another project, install core + only the desired characters:
+bun add /path/to/test-results/companion-kit-core-0.3.0.tgz \
+  /path/to/test-results/companion-kit-character-dogegg-0.3.0.tgz
 ```
 
 `@companion-kit/core` has no runtime dependencies. React and Vue are optional
@@ -44,7 +45,7 @@ TypeScript declarations ship alongside an ordinary global browser bundle.
 
 ## Plain HTML / controller
 
-Copy the `dist/` directory to the static files your server embeds or serves.
+Copy `dist/` and your selected `characters/<id>/` folders to the static files your server embeds or serves. In the example below, Boniu lives under `assets/boniu/`.
 Keep the relative paths inside it intact. Go controllers can embed these files
 without running a JavaScript framework. No runtime package installation is needed.
 
@@ -113,13 +114,20 @@ The Vue wrapper renders the custom element itself, so callers do not need
 
 ## Where artwork is served
 
-Copy the exported `dist/assets/` directory to your app's public static assets,
-for example `public/companion-assets/`, and load a manifest explicitly:
+With Vite, import an installed character directly. Its literal asset URLs are emitted and hashed by the bundler, including deployments below a URL prefix:
+
+```ts
+import dogegg from '@companion-kit/character-dogegg'
+import { createCompanion, defineCharacter } from '@companion-kit/core'
+const companion = createCompanion(defineCharacter(dogegg))
+```
+
+For other bundlers or plain HTML, copy only your installed character package to e.g. `public/companion-assets/dogegg/` and load its manifest explicitly:
 
 ```ts
 import { loadCharacter, createCompanion } from '@companion-kit/core'
 
-const pack = await loadCharacter('/companion-assets/boniu/character.json')
+const pack = await loadCharacter('/companion-assets/dogegg/character.json')
 const companion = createCompanion(pack)
 ```
 
@@ -134,9 +142,7 @@ const pack = await loadBuiltInCharacter('bolo', {
 })
 ```
 
-Provide `assetBaseUrl` (with a trailing slash) when bundling. The helper's default
-module-relative URL is for serving the ESM distribution intact; bundlers differ
-in handling copied JSON directories. No production asset URL references this
+`assetBaseUrl` (with a trailing slash) is required. Core includes only the catalog, never artwork; the host decides which packages to install and where to serve them. No production asset URL references this
 development machine. Cross-origin manifests need the serving host to allow CORS.
 
 ## Commands, events and agents
@@ -208,7 +214,90 @@ uses only its standard library; rasterization uses Playwright Chromium. Checked
 in assets mean consumers never need Python or Playwright. Original artwork and
 provenance are recorded in [NOTICE.md](NOTICE.md).
 
-Goudan's editable rig is `artwork/cat.py`. Its design reference and review sheet
-live in `artwork/goudan/`, outside the runtime assets. Load it using
-`loadBuiltInCharacter('goudan', { assetBaseUrl })` or serve
-`assets/goudan/character.json` with its neighboring PNG files.
+Dogegg's editable rig is `artwork/cat.py`. Its design reference and review sheet
+live in `artwork/dogegg/`, outside the runtime assets. Load it using
+`loadBuiltInCharacter('dogegg', { assetBaseUrl })` or serve
+`assets/dogegg/character.json` with its neighboring PNG files.
+
+## Selective installation (0.2 migration)
+
+The core tarball contains **no default artwork**. Independently installable packages:
+
+- `@companion-kit/character-dogegg` — 狗蛋 Dogegg (renamed from `goudan`)
+- `@companion-kit/character-boniu` — 波妞 Boniu
+- `@companion-kit/character-bolo` — 波洛 Bolo
+- `@companion-kit/character-mimo` — Mimo
+
+`bun run build && bun run pack:all` produces five ordinary npm-compatible tarballs
+in `test-results/`. They are not published to a registry. Add any selection with
+`bun add ./vendor/<filename>.tgz`. A project needing only the ponies installs core
+plus the Boniu and Bolo tarballs. A project using its own art installs core alone.
+There is no all-characters dependency and no postinstall download. Lazy-importing
+a character also defers its network load until the user selects it.
+
+0.1 consumers: replace `core/dist/assets` with individually installed packs;
+`loadBuiltInCharacter` now requires `assetBaseUrl`; `characterUrls` is removed.
+The runtime manifest schema and React/Vue/native component APIs are unchanged.
+
+## POST SSE
+
+```ts
+import { connectAgent, createSSEAgent } from '@companion-kit/core'
+const connection = connectAgent(companion, createSSEAgent({
+  endpoint: '/api/companion/chat',
+  credentials: 'include',
+  body: text => ({ text, character: 'dogegg' }),
+}))
+companion.ask('Hello!')
+// connection.cancel() or connection.disconnect()
+```
+
+The server sends JSON in SSE `data:` frames: `delta`, `text`, `reaction`,
+`error`, then `done`. This is a host/backend protocol, not a direct model-provider
+connection. Keys and provider configuration belong on the backend. See
+[agent protocol](docs/agent-protocol.md).
+
+
+## Moving and interacting with the host
+
+The core's motion driver is DOM- and framework-independent. Coordinates and allowed
+interaction targets are supplied by the host. Movement uses the pack's optional
+`presentation.movement` map (eight directions); packs without it remain usable.
+`presentation.peek` names the character's exposed paw/hoof reaction for a docked view.
+
+```ts
+import { createCompanionMotion } from '@companion-kit/core'
+const motion = createCompanionMotion(controller, {
+  position: { x: 40, y: 300 },
+  onPosition: ({ x, y }) => { /* apply to your view */ },
+  reducedMotion: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
+})
+const unregister = motion.registerTarget('notifications', {
+  position: () => ({ x: 700, y: 60 }), // null if the target is unavailable
+  activate: () => openNotificationPanel(),
+})
+await motion.visit('notifications', true)
+// User drag, hidden state or navigation may cancel an in-flight visit.
+motion.cancel()
+unregister()
+motion.dispose() // component unmount; cancels timers and stale activation
+```
+
+React and Vue hosts use the same driver with their position state. The SSE adapter
+still accepts text/reaction events only: it never clicks arbitrary selectors or runs
+model-generated JavaScript. A host chooses whether to register and invoke a target.
+
+
+`createSSEAgent({ endpoint, body, headers, onSources })` also accepts an optional
+`{type:"sources",items:[{title,url,revision}]}` SSE event. `onSources` receives bounded,
+validated reference metadata for the host to render; it never executes actions or
+navigates. The host owns session IDs, history persistence and internal routing.
+The former locomotion cels were rejected for visual quality and withdrawn.
+The eight `walk-*` reactions temporarily alias the original idle frames, preserving
+character identity while the host moves the element. This is not a finished run
+cycle. Recall uses Dogegg’s paw and the ponies’ solid hooves. See `locomotion.html`
+and `docs/animation-production.md` for review status and replacement requirements.
+
+## Generic agent framework
+
+See [framework and host responsibilities](docs/framework.md) for character/state configuration, portable SSE, and the separately installable [Python harness](server/README.md). Hosts supply their own system prompt, knowledge, tools, authorization and storage. The framework has no EvalHub business dependency. Core 0.5.0 supports named state mapping and completed-stream checkpoints; server harness 0.1.0 supports configurable tool loops, JSON-schema validation and host-authorized writes. Public registry publication has not been performed.
