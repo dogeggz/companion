@@ -2,7 +2,9 @@
 
 Status: procedural quadruped cycles rejected on 2026-09-21. Do not reuse their
 faces or advertise them as production-ready. Current walk-* clips deliberately
-alias original idle frames; the host still supports eight-direction movement.
+alias original idle frames for compatibility. The current preferred automatic
+travel is an identity-preserving portal animation (core 0.6 / packs 0.5). The
+EvalHub host uses teleport; quadruped production below is optional future work.
 
 Use characters/dogegg/base.png and artwork/dogegg/design-reference.png for Dogegg
 identity; use the pony base.png files for their approved faces/colors. Preserve

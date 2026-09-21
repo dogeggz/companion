@@ -22,6 +22,11 @@
       "src": "./mobility.png",
       "width": 2048,
       "height": 256
+    },
+    "teleport": {
+      "src": "./teleport.png",
+      "width": 3072,
+      "height": 512
     }
   },
   "base": {
@@ -2004,6 +2009,260 @@
       ],
       "loop": true,
       "poster": 0
+    },
+    "disappear": {
+      "frames": [
+        {
+          "asset": "teleport",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 45
+        }
+      ],
+      "loop": false,
+      "poster": 11,
+      "returnTo": null
+    },
+    "appear": {
+      "frames": [
+        {
+          "asset": "teleport",
+          "rect": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1024,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1280,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1536,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            1792,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2048,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2304,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2560,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        },
+        {
+          "asset": "teleport",
+          "rect": [
+            2816,
+            256,
+            256,
+            256
+          ],
+          "duration": 45
+        }
+      ],
+      "loop": false,
+      "poster": 11,
+      "returnTo": "idle"
     }
   },
   "presentation": {
@@ -2017,6 +2276,8 @@
       "w": "walk-w",
       "nw": "walk-nw"
     },
-    "peek": "peek"
+    "peek": "peek",
+    "appear": "appear",
+    "disappear": "disappear"
   }
 }

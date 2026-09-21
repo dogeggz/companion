@@ -118,3 +118,6 @@ print('Generated Boniu, Bolo, Mimo and Dogegg character packs.')
 
 from mobility import generate as generate_mobility
 generate_mobility(ROOT)
+
+from teleport import generate as generate_teleport
+generate_teleport(ROOT)

@@ -49,5 +49,5 @@ def generate(root):
         pack['reactions']['peek']={'frames':[{'asset':'mobility','rect':[i*256,0,256,256],'duration':240} for i in range(8)],'loop':True,'poster':0}
         (folder/'mobility.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="256">{"".join(groups)}</svg>')
         pack['assets']['mobility']={'src':'./mobility.png','width':2048,'height':256}
-        pack['presentation']={'movement':{d:'walk-'+d for d in DIRECTIONS},'peek':'peek'}
+        pack.setdefault('presentation', {}).update({'movement':{d:'walk-'+d for d in DIRECTIONS},'peek':'peek'})
         (folder/'character.json').write_text(json.dumps(pack,ensure_ascii=False,indent=2)+'\n')

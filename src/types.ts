@@ -17,7 +17,7 @@ export interface CharacterPack {
   assets: Record<string, SpriteAsset>
   base: SpritePose
   /** Optional host presentation roles; arbitrary reaction names stay supported. */
-  presentation?: { movement?: Partial<Record<import('./motion.js').Direction, string>>; peek?: string }
+  presentation?: { movement?: Partial<Record<import('./motion.js').Direction, string>>; peek?: string; appear?: string; disappear?: string }
   defaultReaction: string
   reactions: Record<string, Reaction>
 }

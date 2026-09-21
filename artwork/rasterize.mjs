@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 const browser = await chromium.launch({ headless: true })
 try {
   const page = await browser.newPage()
-  const paths = ['boniu', 'bolo', 'dogegg'].flatMap(character => ['base', 'atlas', 'mobility'].map(asset => `../characters/${character}/${asset}`))
+  const paths = ['boniu', 'bolo', 'dogegg'].flatMap(character => ['base', 'atlas', 'mobility', 'teleport'].map(asset => `../characters/${character}/${asset}`))
   paths.push('./dogegg/review')
   paths.push('./dogegg/implemented-poses')
   paths.push('./dogegg/motion-review')

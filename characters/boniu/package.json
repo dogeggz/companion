@@ -1,6 +1,6 @@
 {
   "name": "@companion-kit/character-boniu",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "type": "module",
   "description": "波妞 Boniu sprite pack for Companion",
   "exports": {
@@ -17,7 +17,8 @@
     "character.json",
     "atlas.png",
     "base.png",
-    "mobility.png"
+    "mobility.png",
+    "teleport.png"
   ],
   "sideEffects": false
 }

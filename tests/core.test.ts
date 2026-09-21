@@ -233,3 +233,71 @@ test('cancel clears custom transient states without clobbering a newer host reac
   binding.cancel();assert.equal(companion.getSnapshot().reaction,'success')
   binding.disconnect()
 })
+
+test('teleport waits for both clips and changes position only while invisible', async () => {
+  const {createCompanionMotion} = await import('../src/motion.js')
+  const data = structuredClone(fixture())
+  data.presentation = {disappear:'sad', appear:'idle'}
+  const c = createCompanion(data), points: unknown[] = []
+  const m = createCompanionMotion(c,{position:{x:0,y:0},mode:'teleport',onPosition:p=>points.push(p)})
+  let activated = 0
+  m.registerTarget('bell',{position:()=>({x:200,y:100}),activate:()=>{activated++}})
+  const task=m.visit('bell',true)
+  expect(c.getSnapshot().reaction).toBe('sad');expect(points).toEqual([])
+  c.finish(c.getSnapshot().playId);await flush()
+  expect(points).toEqual([{x:200,y:100}]);expect(activated).toBe(0)
+  expect(c.getSnapshot().reaction).toBe('idle');expect(c.getSnapshot().loop).toBe(false)
+  c.finish(c.getSnapshot().playId);expect(await task).toBe(true);expect(activated).toBe(1)
+  m.dispose()
+})
+
+test('teleport cancellation, superseding reactions and disposal cannot activate stale targets', async () => {
+  const {createCompanionMotion} = await import('../src/motion.js')
+  const data=structuredClone(fixture());data.presentation={disappear:'sad',appear:'idle'}
+  const c=createCompanion(data), points: unknown[]=[]
+  const m=createCompanionMotion(c,{position:{x:0,y:0},mode:'teleport',onPosition:p=>points.push(p)})
+  let activated=0
+  m.registerTarget('bell',{position:()=>({x:50,y:50}),activate:()=>{activated++}})
+  const first=m.visit('bell',true), old=c.getSnapshot().playId
+  m.cancel();c.finish(old);expect(await first).toBe(false);expect(points).toEqual([])
+  const second=m.visit('bell',true)
+  c.finish(c.getSnapshot().playId);await flush()
+  m.cancel();expect(await second).toBe(false);expect(activated).toBe(0)
+  const third=m.moveTo({x:100,y:100})
+  c.react('sad');const host=c.getSnapshot().playId
+  expect(await third).toBe(false);m.cancel();expect(c.getSnapshot().playId).toBe(host)
+  const fourth=m.moveTo({x:300,y:300})
+  m.dispose();expect(await fourth).toBe(false);expect(activated).toBe(0)
+})
+
+test('appear/disappear hold the proper endpoint and reduced motion needs no renderer', async () => {
+  const {createCompanionMotion} = await import('../src/motion.js')
+  const data=structuredClone(fixture());data.presentation={disappear:'sad',appear:'idle'}
+  const c=createCompanion(data)
+  const m=createCompanionMotion(c,{position:{x:0,y:0},mode:'teleport',onPosition:()=>{}})
+  const out=m.disappear();c.finish(c.getSnapshot().playId);expect(await out).toBe(true)
+  expect(c.getSnapshot().reaction).toBe('sad');expect(c.getSnapshot().returnTo).toBe(null)
+  const incoming=m.appear();c.finish(c.getSnapshot().playId);expect(await incoming).toBe(true)
+  expect(c.getSnapshot().reaction).toBe(data.defaultReaction)
+  m.dispose()
+  const reduced=createCompanionMotion(c,{position:{x:0,y:0},mode:'teleport',onPosition:()=>{},reducedMotion:()=>true})
+  expect(await reduced.moveTo({x:80,y:20})).toBe(true)
+  expect(await reduced.disappear()).toBe(true);expect(await reduced.appear()).toBe(true)
+  reduced.dispose()
+  const fallback=createCompanionMotion(createCompanion(fixture()),{position:{x:0,y:0},mode:'teleport',onPosition:()=>{}})
+  expect(await fallback.moveTo({x:4,y:5})).toBe(true);fallback.dispose()
+})
+
+test('teleport character roles validate and disappearing packs hold a blank final cel', async () => {
+  const invalid=structuredClone(fixture());invalid.presentation={appear:'nonexistent'}
+  expect(()=>defineCharacter(invalid)).toThrow()
+  for (const id of ['dogegg','boniu','bolo']) {
+    const raw=JSON.parse(await readFile(new URL(`../characters/${id}/character.json`,import.meta.url),'utf8'))
+    const pack=defineCharacter(raw)
+    expect(pack.presentation?.appear).toBe('appear')
+    expect(pack.reactions.disappear.returnTo).toBe(null)
+    expect(pack.reactions.appear.returnTo).toBe(pack.defaultReaction)
+    const last=await readFile(new URL(`../characters/${id}/frames/disappear-11.svg`,import.meta.url),'utf8')
+    expect(last).not.toContain('<g')
+  }
+})

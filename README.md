@@ -295,9 +295,41 @@ navigates. The host owns session IDs, history persistence and internal routing.
 The former locomotion cels were rejected for visual quality and withdrawn.
 The eight `walk-*` reactions temporarily alias the original idle frames, preserving
 character identity while the host moves the element. This is not a finished run
-cycle. Recall uses Dogegg’s paw and the ponies’ solid hooves. See `locomotion.html`
+cycle. Automatic travel can now use teleport instead. Recall uses Dogegg’s paw and U-shaped pony horseshoes. See `locomotion.html`
 and `docs/animation-production.md` for review status and replacement requirements.
 
 ## Generic agent framework
 
 See [framework and host responsibilities](docs/framework.md) for character/state configuration, portable SSE, and the separately installable [Python harness](server/README.md). Hosts supply their own system prompt, knowledge, tools, authorization and storage. The framework has no EvalHub business dependency. Core 0.5.0 supports named state mapping and completed-stream checkpoints; server harness 0.1.0 supports configurable tool loops, JSON-schema validation and host-authorized writes. Public registry publication has not been performed.
+
+
+## Teleport and appearance (core 0.6)
+
+Dogegg, Boniu and Bolo packs 0.5.0 include two 12-frame portal clips, each 540ms.
+The original character geometry is preserved while orbit rings and stars dissipate.
+`presentation.appear` / `presentation.disappear` map these roles to arbitrary
+reaction names; custom packs can provide their own PNG frames and timing.
+Disappearance must end transparent; appearance must start transparent and end
+with the normal pose. The generator is `artwork/teleport.py`.
+
+```ts
+const motion = createCompanionMotion(companion, {
+  position: { x: 24, y: 300 },
+  mode: 'teleport',
+  onPosition: ({ x, y }) => setPosition({ x, y }),
+  reducedMotion: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
+})
+await motion.appear()                 // initial mount / recall, after assets are ready
+await motion.moveTo({ x: 700, y: 80 }) // disappear → position jump → appear
+await motion.disappear()              // hold transparent last cel, then hide/unmount
+motion.dispose()                     // cancel on unmount
+```
+
+The existing registered-target `visit()` API uses the same mode and activates only
+after arrival finishes. Methods resolve `false` on cancellation, superseding host
+reactions or disposal. Dragging may call `cancel()` and retain control immediately.
+Playback uses renderer `complete` events, so durations are not duplicated in host
+code. Keep the renderer mounted through disappearance and call `dispose()` before
+unmounting; paused/background playback waits until it resumes. Missing role clips
+and reduced-motion hosts switch immediately. `mode: 'translate'` remains the
+default for backwards compatibility. The framework has no built-in platform targets.

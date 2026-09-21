@@ -53,7 +53,10 @@ export function defineCharacter(input: unknown, baseUrl?: string | URL): Charact
         if (!['n','ne','e','se','s','sw','w','nw'].includes(direction) || typeof reaction !== 'string' || !own(pack.reactions, reaction)) throw new TypeError('Invalid movement reaction')
       }
     }
-    if (pack.presentation.peek !== undefined && (typeof pack.presentation.peek !== 'string' || !own(pack.reactions, pack.presentation.peek))) throw new TypeError('Invalid peek reaction')
+    for (const role of ['peek', 'appear', 'disappear'] as const) {
+      const reaction = pack.presentation[role]
+      if (reaction !== undefined && (typeof reaction !== 'string' || !own(pack.reactions, reaction))) throw new TypeError(`Invalid ${role} reaction`)
+    }
   }
   return deepFreeze(pack)
 }
