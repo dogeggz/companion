@@ -42,7 +42,7 @@ try {
   await page.screenshot({ path: path.join(results, 'studio-desktop.png'), fullPage: true })
 
   const portraits = []
-  for (const character of ['boniu', 'bolo', 'mimo', 'goudan']) {
+  for (const character of ['boniu', 'bolo', 'mimo', 'dogegg']) {
     await page.locator(`[data-character="${character}"]`).click()
     await page.waitForFunction(id => document.querySelector('#hero-companion').character?.id === id, character)
     await waitArt()
@@ -59,7 +59,7 @@ try {
   assert.equal(new Set(portraits).size, 4, 'four distinct characters rendered')
   // Check actual exported pixels: alpha margins, pink nose/pads, and no ghost paw.
   const catArt = await page.evaluate(async () => {
-    const img = new Image(); img.src = './assets/goudan/atlas.png'; await img.decode()
+    const img = new Image(); img.src = './assets/dogegg/atlas.png'; await img.decode()
     const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height
     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0)
     const pixel = (x, y) => [...ctx.getImageData(x, y, 1, 1).data]
@@ -120,8 +120,8 @@ try {
     }
     return measured
   }, [
-    `data:image/png;base64,${(await readFile(path.join(root, 'artwork/goudan/design-reference.png'))).toString('base64')}`,
-    `data:image/svg+xml;base64,${(await readFile(path.join(root, 'artwork/goudan/implemented-poses.svg'))).toString('base64')}`,
+    `data:image/png;base64,${(await readFile(path.join(root, 'artwork/dogegg/design-reference.png'))).toString('base64')}`,
+    `data:image/svg+xml;base64,${(await readFile(path.join(root, 'artwork/dogegg/implemented-poses.svg'))).toString('base64')}`,
   ])
   const [referenceFace, actualFace] = faceMeasurements
   assert.ok(actualFace.cheeks.every((x, i) => Math.abs(x-referenceFace.cheeks[i]) <= 4), 'cheek outline matches the selected image within four source pixels')
@@ -129,7 +129,7 @@ try {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.evaluate(() => window.companionDemo.controller.react('notification'))
   await page.waitForFunction(() => document.querySelector('#hero-companion').dataset.frame === '5')
-  await page.locator('.portrait-card').screenshot({ path: path.join(results, 'goudan-wave.png') })
+  await page.locator('.portrait-card').screenshot({ path: path.join(results, 'dogegg-wave.png') })
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.locator('[data-character="boniu"]').click(); await waitArt()
   await page.locator('#add-reaction').click()
@@ -219,7 +219,7 @@ try {
   // This page is built by test:package from a tarball installed in a different directory.
   await page.goto(`${base}consumer.html`, { waitUntil: 'networkidle' })
   await page.waitForFunction(() => window.packedConsumers?.length === 3 && document.querySelectorAll('agent-companion').length === 3)
-  assert.equal(await page.evaluate(() => window.packedConsumers.every(c => c.getSnapshot().character.id === 'goudan')), true)
+  assert.equal(await page.evaluate(() => window.packedConsumers.every(c => c.getSnapshot().character.id === 'dogegg')), true)
   await page.evaluate(() => window.packedConsumers.forEach(c => { c.react('thinking'); c.say('Packed package works'); }))
   await page.waitForTimeout(450)
   assert.equal(await page.locator('agent-companion[data-reaction="thinking"]').count(), 3)

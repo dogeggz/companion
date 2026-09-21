@@ -15,15 +15,21 @@ execFileSync('bun', ['pm', 'pack', '--filename', path.join(results, archive.file
 const consumer = await mkdtemp(path.join(tmpdir(), 'companion-consumer-'))
 await writeFile(path.join(consumer, 'package.json'), JSON.stringify({ name: 'independent-consumer', private: true, type: 'module' }))
 const install = (...args) => execFileSync('bun', ['add', '--ignore-scripts', ...args], { cwd: consumer, stdio: 'pipe' })
-install(path.join(results, archive.filename))
+execFileSync('bun', ['run', 'pack:all'], {cwd:root,stdio:'pipe'})
+await mkdir(path.join(consumer, 'vendor'))
+for (const file of [archive.filename, 'companion-kit-character-dogegg-0.2.0.tgz']) await cp(path.join(results, file), path.join(consumer, 'vendor', file))
+install(path.join(consumer, 'vendor', archive.filename), path.join(consumer, 'vendor', 'companion-kit-character-dogegg-0.2.0.tgz'))
 const installed = path.join(consumer, 'node_modules/@companion-kit/core')
 const metadata = JSON.parse(await readFile(path.join(installed, 'package.json'), 'utf8'))
 assert.equal(metadata.name, '@companion-kit/core')
 assert.equal(metadata.dependencies, undefined)
-const goudan = JSON.parse(await readFile(path.join(installed, 'dist/assets/goudan/character.json'), 'utf8'))
-assert.equal(goudan.name, '狗蛋')
-for (const asset of Object.values(goudan.assets)) {
-  const png = await readFile(path.join(installed, 'dist/assets/goudan', asset.src))
+assert.ok(!(await readdir(path.join(installed, 'dist'))).includes('assets'))
+const installedPack = path.join(consumer, 'node_modules/@companion-kit/character-dogegg')
+assert.deepEqual((await readdir(path.dirname(installedPack))).sort(), ['character-dogegg', 'core'])
+const dogegg = JSON.parse(await readFile(path.join(installedPack, 'character.json'), 'utf8'))
+assert.equal(dogegg.name, '狗蛋')
+for (const asset of Object.values(dogegg.assets)) {
+  const png = await readFile(path.join(installedPack, asset.src))
   assert.equal(png.readUInt32BE(16), asset.width)
   assert.equal(png.readUInt32BE(20), asset.height)
 }
@@ -33,12 +39,11 @@ import assert from 'node:assert/strict';
 import { createCompanion, defineCharacter } from '@companion-kit/core';
 import { defineCompanion } from '@companion-kit/core/element';
 import '@companion-kit/core/register';
-import { characterUrls } from '@companion-kit/core/characters';
+import { characterNames } from '@companion-kit/core/characters';
 const c = createCompanion(); c.say('works without a DOM');
 assert.equal(c.getSnapshot().text, 'works without a DOM');
 assert.equal(defineCompanion(), undefined);
-assert.ok(characterUrls.boniu.endsWith('assets/boniu/character.json'));
-assert.ok(characterUrls.goudan.endsWith('assets/goudan/character.json'));
+assert.ok(characterNames.includes('dogegg'));
 for (const framework of ['react', 'vue']) {
   try { await import(framework); assert.fail('Unexpected runtime framework dependency'); }
   catch(error) { assert.equal(error.code, 'ERR_MODULE_NOT_FOUND'); }
@@ -65,7 +70,7 @@ console.log('Packed React and Vue adapters render in SSR.');
 `)
 execFileSync(process.execPath, ['ssr.mjs'], { cwd: consumer, stdio: 'inherit' })
 // Build a completely separate consumer from the installed tarball, not project source.
-await cp(path.join(installed, 'dist/assets/goudan'), path.join(root, 'site/packed-assets/goudan'), { recursive: true })
+await cp(installedPack, path.join(root, 'site/packed-assets/dogegg'), { recursive: true })
 await writeFile(path.join(consumer, 'main.js'), `
 import {createCompanion,loadCharacter} from '@companion-kit/core';
 import {defineCompanion} from '@companion-kit/core/element';
@@ -74,7 +79,7 @@ import {Companion as VueCompanion} from '@companion-kit/core/vue';
 import {createElement} from 'react'; import {createRoot} from 'react-dom/client';
 import {createApp,h} from 'vue';
 defineCompanion();
-const pack=await loadCharacter(new URL('./packed-assets/goudan/character.json',location.href));
+const pack=await loadCharacter(new URL('./packed-assets/dogegg/character.json',location.href));
 const a=createCompanion(pack), b=createCompanion(pack), c=createCompanion(pack);
 document.querySelector('#plain').controller=a;
 const reactRoot=createRoot(document.querySelector('#react')); reactRoot.render(createElement(ReactCompanion,{controller:b,size:120}));

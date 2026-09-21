@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Companion · 移动素材修正</title>
+<style>body{background:#f7f5f1;color:#4e455c;font:15px/1.65 system-ui;margin:32px}body.dark{background:#292a34;color:#efe8fa}header{max-width:1000px;margin:auto}h1{font-size:28px}button,a{color:inherit;padding:8px 14px;border:1px solid #a899b5;border-radius:9px;background:transparent;cursor:pointer;margin-right:8px}section{max-width:1440px;margin:32px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}article{border:1px solid #ab9cbb44;border-radius:18px;text-align:center;background:#fff5}.dark article{background:radial-gradient(ellipse at 50% 22%,#c8c6ec33,transparent 70%)}article b{display:block;margin-top:12px;font-size:12px}agent-companion{display:block;margin:auto}h2{grid-column:1/-1;font-size:18px}</style>
+<header><h1>保留原来的脸。</h1><p>走样的跑步素材已撤下。当前移动临时沿用原始 idle 姿态，并非完成的四足动画；正式步态待重新制作。最后一格是收起时的猫爪／小马蹄子。</p><button id="theme">切换深浅背景</button><button id="play">暂停 / 播放</button><a href="./">返回工作室</a></header><main></main>
+<script type="module">
+import {createCompanion,loadCharacter} from './package/index.js';import './package/register.js';
+const all=[];for(const [id,name] of [['dogegg','狗蛋 Dogegg'],['boniu','波妞 Boniu'],['bolo','波洛 Bolo']]){
+ const pack=await loadCharacter(new URL('./assets/'+id+'/character.json',location.href));const row=document.createElement('section');row.innerHTML='<h2>'+name+'</h2>';document.querySelector('main').append(row);
+ for(const d of ['n','ne','e','se','s','sw','w','nw','peek']){const a=document.createElement('article');a.innerHTML='<b>'+d.toUpperCase()+'</b>';const el=document.createElement('agent-companion');el.setAttribute('size','160');const c=createCompanion(pack);el.controller=c;a.append(el);row.append(a);c.react(d==='peek'?'peek':'walk-'+d);all.push(c)}
+}
+let paused=false;document.querySelector('#play').onclick=()=>{paused=!paused;all.forEach(c=>paused?c.pause():c.resume())};document.querySelector('#theme').onclick=()=>document.body.classList.toggle('dark');
+</script></html>

@@ -17,6 +17,8 @@ const css = `
   *{box-sizing:border-box}
   button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:pointer;border-radius:20%;line-height:0;color:inherit}
   button:focus-visible{outline:2px solid var(--companion-accent,#739c8d);outline-offset:3px}
+  :host([data-loading]) button{background:radial-gradient(ellipse at center,rgba(170,194,185,.3),transparent 68%);cursor:wait}
+  :host([data-loading]) canvas{opacity:0}
   canvas{display:block;width:100%;height:auto;aspect-ratio:1}
   .message{margin:0 0 8px;padding:9px 13px;background:var(--companion-bubble,#fffdf7);border:1px solid var(--companion-border,#dce3d8);border-radius:14px 14px 14px 3px;max-width:var(--companion-message-width,280px);min-width:100%;width:max-content;overflow-wrap:anywhere;white-space:pre-wrap;font-size:var(--companion-font-size,12px);line-height:1.7}
   .message[hidden]{display:none}
@@ -158,6 +160,8 @@ export function defineCompanion(tagName = 'agent-companion'): CustomElementConst
     private async prepare(pack: CharacterPack) {
       const ticket = ++this.imageGeneration
       this.ready = false; this.images.clear(); this.painted = ''
+      this.dataset.loading = 'true'; delete this.dataset.ready; this.setAttribute('aria-busy', 'true')
+      this.dispatchEvent(new CustomEvent('companion-loading', {detail:{characterId:pack.id},bubbles:true,composed:true}))
       this.canvas.width = pack.size.width; this.canvas.height = pack.size.height
       this.canvas.style.aspectRatio = `${pack.size.width} / ${pack.size.height}`
       try {
@@ -170,8 +174,13 @@ export function defineCompanion(tagName = 'agent-companion'): CustomElementConst
         if (ticket !== this.imageGeneration || !this.isConnected) return
         this.images = new Map(loaded); this.ready = true
         this.sync()
+        delete this.dataset.loading; this.dataset.ready = 'true'; this.setAttribute('aria-busy', 'false')
+        this.dispatchEvent(new CustomEvent('companion-ready', {detail:{characterId:pack.id},bubbles:true,composed:true}))
       } catch (error) {
-        if (ticket === this.imageGeneration && this.isConnected) this.model.reportError('asset-load', String(error))
+        if (ticket === this.imageGeneration && this.isConnected) {
+          delete this.dataset.loading; this.setAttribute('aria-busy', 'false')
+          this.model.reportError('asset-load', String(error))
+        }
       }
     }
     private draw(pose: SpritePose, key: string) {
@@ -209,6 +218,7 @@ export function defineCompanion(tagName = 'agent-companion'): CustomElementConst
         if (snapshot.character) void this.prepare(snapshot.character)
         else {
           this.imageGeneration++; this.ready = false; this.images.clear()
+          delete this.dataset.ready; delete this.dataset.loading; this.setAttribute('aria-busy', 'false')
           this.canvas.getContext('2d')?.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
       }

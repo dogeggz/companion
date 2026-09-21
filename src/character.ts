@@ -45,6 +45,16 @@ export function defineCharacter(input: unknown, baseUrl?: string | URL): Charact
     if (clip.poster !== undefined && (!Number.isInteger(clip.poster) || clip.poster < 0 || clip.poster >= clip.frames.length)) throw new TypeError(`${name}: poster outside frames`)
     if (clip.returnTo !== undefined && clip.returnTo !== null && (typeof clip.returnTo !== 'string' || !own(pack.reactions, clip.returnTo))) throw new TypeError(`${name}: unknown returnTo`)
   }
+  if (pack.presentation !== undefined) {
+    object(pack.presentation, 'presentation')
+    if (pack.presentation.movement !== undefined) {
+      object(pack.presentation.movement, 'presentation.movement')
+      for (const [direction, reaction] of Object.entries(pack.presentation.movement)) {
+        if (!['n','ne','e','se','s','sw','w','nw'].includes(direction) || typeof reaction !== 'string' || !own(pack.reactions, reaction)) throw new TypeError('Invalid movement reaction')
+      }
+    }
+    if (pack.presentation.peek !== undefined && (typeof pack.presentation.peek !== 'string' || !own(pack.reactions, pack.presentation.peek))) throw new TypeError('Invalid peek reaction')
+  }
   return deepFreeze(pack)
 }
 

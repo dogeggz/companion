@@ -1,7 +1,7 @@
 import type { CompanionController } from './controller.js'
 import type { AgentAdapter } from './types.js'
 
-export interface AgentBindingOptions { thinking?: string; success?: string; error?: string }
+export interface AgentBindingOptions { thinking?: string; success?: string; error?: string; states?: Record<string, string> }
 
 /** Host supplies the transport. Latest request wins, even if an adapter ignores abort. */
 export function connectAgent(companion: CompanionController, adapter: AgentAdapter, options: AgentBindingOptions = {}) {
@@ -26,17 +26,25 @@ export function connectAgent(companion: CompanionController, adapter: AgentAdapt
     reactIfAvailable(options.thinking ?? 'thinking')
     companion.say('')
     void (async () => {
+      let hasReaction = false
       try {
         for await (const update of adapter({ text: request.text, requestId: request.id, signal: abort.signal })) {
           if (!current()) return
           switch (update.type) {
+            case 'state': {
+              const reaction = options.states?.[update.name]
+              if (reaction && companion.reactions.includes(reaction)) { companion.react(reaction); hasReaction = true }
+              break
+            }
             case 'text': companion.say(update.text); break
             case 'delta': companion.say(companion.getSnapshot().text + update.text); break
-            case 'reaction': companion.react(update.name); break
+            case 'reaction':
+              if (companion.reactions.includes(update.name)) { companion.react(update.name); hasReaction = true }
+              break
             case 'action': companion.action(update.name, update.data); break
           }
         }
-        if (current()) reactIfAvailable(options.success ?? 'success')
+        if (current() && !hasReaction) reactIfAvailable(options.success ?? 'success')
       } catch (error) {
         if (!current()) return
         reactIfAvailable(options.error ?? 'sad')

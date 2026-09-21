@@ -65,16 +65,14 @@ companion.ask('Explain the result')
 connection.disconnect()
 ```
 
-For SSE, NDJSON or WebSocket, parse that transport's frames in the adapter and
-yield the same `AgentUpdate` objects. Keep conversation history, session IDs,
+For POST SSE use `createSSEAgent({ endpoint, body?, headers?, credentials?, fetch? })`. For NDJSON or WebSocket, parse frames in a custom adapter and yield the same `AgentUpdate` objects. Keep conversation history, session IDs,
 authentication and server-side credentials in the host/backend. The component
 does not prescribe any vendor API. Asset loading is unrelated to agent traffic.
 
-`connectAgent` starts `thinking`, finishes with `success`, and uses `sad` on
+`connectAgent` starts `thinking`, finishes with `success` unless the adapter supplied an explicit supported reaction, and uses `sad` on
 failure when the pack contains those names. Override mappings with the third
 argument `{ thinking: 'working', success: 'done', error: 'oops' }`. Missing
-automatic reactions are skipped. An explicit unknown reaction from the adapter
-emits an error. To render errors as friendly text, subscribe to `error` and map
+automatic reactions are skipped. An unknown reaction from the adapter is ignored; direct `controller.react()` still reports unknown reactions. To render errors as friendly text, subscribe to `error` and map
 the message in the host.
 
 New requests abort old ones and ignore late updates even when a transport fails
@@ -94,3 +92,38 @@ The interoperability approach follows browser custom elements and standard
 events: [Vue custom elements](https://vuejs.org/guide/extras/web-components),
 [React custom HTML elements](https://react.dev/reference/react-dom/components#custom-html-elements),
 and [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM).
+
+## SSE wire format
+
+```text
+data: {"type":"delta","text":"Hello"}
+
+data: {"type":"reaction","name":"notification"}
+
+data: {"type":"done"}
+
+```
+
+Each event ends with a blank line. UTF-8 chunks, CRLF and multiline `data:` are
+handled; comments are ignored. Finish with `done`; unexpected EOF is an error.
+`{"type":"error","message":"…"}` fails the request. Events are bounded to 256 KiB.
+Arbitrary `action` events are deliberately not accepted from this network adapter.
+Use a custom adapter when host policy authorizes additional commands. Cancellation
+passes AbortSignal to fetch and releases the response reader.
+
+## Asset readiness
+
+Views emit bubbling/composed `companion-loading` and `companion-ready` DOM
+events with `{ characterId }`. `ready` fires after images are decoded, dimensions
+validated and the first frame drawn. Hosts can keep their localized placeholder
+until this event. `data-loading`, `data-ready` and `aria-busy` also expose view
+readiness. Controller `characterchange` alone does not mean images are ready.
+
+
+Optional `{"type":"checkpoint","token":"opaque-host-state"}` carries up to 196608
+characters of opaque host continuation state. `createSSEAgent({onCheckpoint})`
+delivers it only after `done`; truncated/error/aborted streams never commit it.
+The core does not decode, store or replay the token. The host chooses account
+isolation, verification, persistence, and a request body field for the next turn.
+
+Named lifecycle states use `{"type":"state","name":"tool_running"}` and are mapped via `connectAgent(..., {states: {tool_running: "your-reaction"}})`. State and reaction names are host-defined. `{"type":"metadata","name":"tool-progress","data":{}}` reaches optional `onMetadata` as inert data, never as executable DOM instructions. The server sends `checkpoint` followed by `done` only after a successful turn.

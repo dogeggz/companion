@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
-import { defineCharacter, sampleReaction, createCompanion, connectAgent } from '../src/index.js'
+import { defineCharacter, sampleReaction, createCompanion, connectAgent, createSSEAgent } from '../src/index.js'
 import type { AgentAdapter, CharacterPack } from '../src/index.js'
 
 function fixture(): CharacterPack {
@@ -43,7 +43,7 @@ test('reject invalid packs and resolve asset paths against the manifest', () => 
 })
 
 test('all built-in packs validate, including differing sizes and extra reactions', async () => {
-  for (const name of ['boniu', 'bolo', 'mimo', 'goudan']) {
+  for (const name of ['boniu', 'bolo', 'mimo', 'dogegg']) {
     const url = new URL(`../characters/${name}/character.json`, import.meta.url)
     const pack = defineCharacter(JSON.parse(await readFile(url, 'utf8')), url)
     for (const reaction of ['idle', 'thinking', 'notification', 'success', 'warning', 'sad']) assert.ok(pack.reactions[reaction])
@@ -103,4 +103,101 @@ test('transport error, teardown, and character switch do not leave live streams'
   const next = connectAgent(c, async function* (req) { signal = req.signal; yield { type: 'text', text: 'ready' }; await new Promise(resolve => req.signal.addEventListener('abort', resolve, { once: true })) })
   c.ask('pending'); await flush(); c.setCharacter(fixture())
   assert.equal(signal.aborted, true); next.disconnect()
+})
+
+
+test('SSE handles byte-split Unicode and CRLF, validates events, and requires completion', async () => {
+  let cancelled = false
+  const bytes = new TextEncoder().encode(': heartbeat\r\n\r\ndata: {"type":"delta","text":"狗蛋"}\r\n\r\ndata: {"type":"reaction","name":"sad"}\r\n\r\ndata: {"type":"done"}\r\n\r\n')
+  let offset = 0
+  const response = new Response(new ReadableStream({pull(c) { if (offset < bytes.length) c.enqueue(bytes.slice(offset, ++offset)) },cancel(){cancelled=true}}),{headers:{'Content-Type':'text/event-stream'}})
+  const adapter = createSSEAgent({endpoint:'https://host.test/chat',fetch:async (_url,init) => {
+    assert.equal(init?.method,'POST')
+    assert.deepEqual(JSON.parse(String(init?.body)),{text:'hello'})
+    return response
+  }})
+  const request = {text:'hello',signal:new AbortController().signal,requestId:1}
+  const updates = []
+  for await (const update of adapter(request)) updates.push(update)
+  assert.deepEqual(updates,[{type:'delta',text:'狗蛋'},{type:'reaction',name:'sad'}])
+  assert.equal(cancelled,true)
+  for (const raw of ['', 'data: {"type":"action","name":"delete"}\n\n', 'data: {"type":"error","message":"unavailable"}\n\n']) {
+    const invalid = createSSEAgent({endpoint:'/chat',fetch:async()=>new Response(raw,{headers:{'Content-Type':'text/event-stream'}})})
+    await assert.rejects(async()=>{ for await(const _update of invalid(request)) { /* consume */ } })
+  }
+})
+
+test('an explicit sad reaction survives successful transport completion', async () => {
+  const companion = createCompanion(fixture())
+  const binding = connectAgent(companion,async function* () {
+    yield {type:'reaction',name:'sad'}
+    yield {type:'delta',text:'Sorry to hear that'}
+  })
+  companion.ask('bad news'); await flush()
+  assert.equal(companion.getSnapshot().reaction,'sad')
+  binding.disconnect()
+})
+
+test('motion follows eight directions, cancels stale visits and activates only registered targets', async () => {
+  const {createCompanionMotion, directionFromVector} = await import('../src/motion.js')
+  expect([[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]].map(([x,y])=>directionFromVector(x,y))).toEqual(['e','se','s','sw','w','nw','n','ne'])
+  const controller = createCompanion()
+  let now = 0, activated = 0
+  const callbacks = new Map<number,()=>void>(); let counter = 0
+  const points: {x:number;y:number}[] = []
+  const motion = createCompanionMotion(controller, {position:{x:0,y:0}, speed:100, onPosition:p=>points.push(p), clock:{now:()=>now,schedule:cb=>{callbacks.set(++counter,cb);return counter},cancel:id=>{callbacks.delete(id as number)}}})
+  const tick = (time:number) => {now=time;const pending=[...callbacks.values()];callbacks.clear();pending.forEach(cb=>cb())}
+  motion.registerTarget('bell',{position:()=>({x:100,y:100}),activate:()=>{activated++}})
+  const stale=motion.visit('bell',true);tick(200);motion.cancel();tick(2000)
+  expect(await stale).toBe(false);expect(activated).toBe(0)
+  const current=motion.visit('bell',true);tick(5000)
+  expect(await current).toBe(true);expect(activated).toBe(1);expect(points.at(-1)).toEqual({x:100,y:100})
+  expect(await motion.visit('unregistered',true)).toBe(false)
+  const cancelled=motion.moveTo({x:500,y:0});motion.dispose();tick(10000)
+  expect(await cancelled).toBe(false);expect(callbacks.size).toBe(0)
+  expect(()=>motion.moveTo({x:NaN,y:0})).toThrow()
+})
+
+
+test('SSE source metadata is bounded, inert and only exposes safe links', async () => {
+  const source = {title:'Guide',url:'/guide/intro',revision:'v1'}
+  const seen: unknown[] = []
+  const req = {text:'question',signal:new AbortController().signal,requestId:1}
+  const adapter = (items: unknown) => createSSEAgent({endpoint:'/chat',onSources:s=>seen.push(s),fetch:async()=>new Response(
+    `data: ${JSON.stringify({type:'sources',items})}\n\ndata: {"type":"done"}\n\n`,{headers:{'Content-Type':'text/event-stream'}})})
+  for await (const _ of adapter([source])(req)) { assert.fail('Sources must not execute a companion action') }
+  assert.deepEqual(seen,[[source]])
+  for(const url of ['javascript:alert(1)','//untrusted.test','/\\evil.test','/hello world']) {
+    await assert.rejects(async()=>{for await(const _ of adapter([{...source,url}])(req)){} })
+  }
+  await assert.rejects(async()=>{for await(const _ of adapter(Array(13).fill(source))(req)){} })
+})
+
+
+test('SSE checkpoints commit only on done, never on failure or abort', async () => {
+  const seen: string[] = []
+  for (const end of ['data: {"type":"done"}\n\n', '', 'data: {"type":"error","message":"failed"}\n\n']) {
+    const adapter = createSSEAgent({endpoint:'/chat', onCheckpoint:s=>seen.push(s),fetch:async()=>new Response(
+      'data: {"type":"checkpoint","token":"opaque-state"}\n\n'+end, {headers:{'Content-Type':'text/event-stream'}})})
+    const consume = async()=>{for await (const _ of adapter({text:'test',requestId:1,signal:new AbortController().signal})) {}}
+    if (end.includes('done')) await consume(); else await assert.rejects(consume)
+  }
+  assert.deepEqual(seen,['opaque-state'])
+  const controller = new AbortController(); controller.abort()
+  const adapter = createSSEAgent({endpoint:'/chat',onCheckpoint:s=>seen.push(s),fetch:async()=>new Response(
+    'data: {"type":"checkpoint","token":"cancelled"}\n\ndata: {"type":"done"}\n\n', {headers:{'Content-Type':'text/event-stream'}})})
+  for await (const _ of adapter({text:'test',requestId:2,signal:controller.signal})) {}
+  assert.deepEqual(seen,['opaque-state'])
+})
+
+
+test('host-defined harness states map to arbitrary character reactions', async () => {
+  const companion = createCompanion(fixture())
+  const reaction = companion.reactions[0]
+  const binding = connectAgent(companion, async function* () {
+    yield {type:'state', name:'inventory_lookup'}
+  }, {states:{inventory_lookup:reaction}})
+  companion.ask('stock'); await flush()
+  assert.equal(companion.getSnapshot().reaction,reaction)
+  binding.disconnect()
 })

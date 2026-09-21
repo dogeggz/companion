@@ -1,5 +1,5 @@
 import { build } from 'esbuild'
-import { cp, mkdir, rm } from 'node:fs/promises'
+import { mkdir, rm } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
@@ -17,5 +17,5 @@ await build({
 })
 await build({ entryPoints: ['src/browser.ts'], bundle: true, format: 'iife', globalName: 'CompanionKit', target: 'es2022', outfile: 'dist/companion.global.js', minify: true, sourcemap: true })
 execFileSync(process.execPath, ['node_modules/typescript/bin/tsc', '--emitDeclarationOnly', '-p', 'tsconfig.json'], { stdio: 'inherit' })
-await cp('characters', 'dist/assets', { recursive: true })
+await import('./build-packs.mjs')
 console.log('Built ESM, global browser bundle, declarations and character packs.')

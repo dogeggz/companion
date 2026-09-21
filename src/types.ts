@@ -16,6 +16,8 @@ export interface CharacterPack {
   size: { width: number; height: number }
   assets: Record<string, SpriteAsset>
   base: SpritePose
+  /** Optional host presentation roles; arbitrary reaction names stay supported. */
+  presentation?: { movement?: Partial<Record<import('./motion.js').Direction, string>>; peek?: string }
   defaultReaction: string
   reactions: Record<string, Reaction>
 }
@@ -45,6 +47,7 @@ export type CompanionCommand =
   | { type: 'action'; name: string; data?: unknown }
   | { type: 'pause' | 'resume' | 'clear' }
 export type AgentUpdate =
+  | { type: 'state'; name: string }
   | { type: 'text'; text: string }
   | { type: 'delta'; text: string }
   | { type: 'reaction'; name: string }
