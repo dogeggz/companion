@@ -27,7 +27,8 @@ def peek(kind, frame):
     bevel = path('M53 151C55 192 87 216 128 216C169 216 201 192 203 151', 'none', shadow, 6)
     shine = path('M67 65L57 128M189 65L199 128M99 187Q128 204 157 187', 'none', '#fffafc', 4)
     nails = ''.join(f'<ellipse cx="{x}" cy="{y}" rx="4" ry="6" transform="rotate({tilt} {x} {y})" fill="{outline}"/>' for x,y,tilt in [(78,87,9),(73,133,0),(89,175,-38),(178,87,-9),(183,133,0),(167,175,38)])
-    return f'<g transform="rotate({angle} 128 151)">{shoe}{bevel}{shine}{nails}</g>'
+    # Keep the attachment near the frame edge while reducing only visible artwork.
+    return f'<g transform="translate(128 223) scale(0.62) translate(-128 -223)"><g transform="rotate({angle} 128 151)">{shoe}{bevel}{shine}{nails}</g></g>'
 
 
 
