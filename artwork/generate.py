@@ -61,7 +61,7 @@ for state in STATES + ['dance']:
     reactions[state] = {'frames': [{'asset': f'{state}-{i}', 'duration': 1700 if state == 'idle' and i == 0 else 500 if i == count-1 else 100} for i in range(count)], 'loop': state in ['idle', 'thinking'], 'poster': 0 if state == 'idle' else 5}
 (folder / 'base.svg').write_text(robot('idle', 0, 12))
 write_pack(folder, {'schemaVersion': 1, 'id': 'mimo', 'name': '米莫 Mimo', 'description': '奶油白机壳、薄荷耳罩与发光表情的口袋机器人', 'size': {'width': 240, 'height': 240}, 'assets': assets, 'base': {'asset': 'idle-0'}, 'defaultReaction': 'idle', 'reactions': reactions})
-folder = ROOT / 'goudan'
+folder = ROOT / 'dogegg'
 (folder / 'frames').mkdir(parents=True, exist_ok=True)
 groups, reactions = [], {}
 for row, state in enumerate(CAT_STATES):
@@ -80,7 +80,7 @@ for row, state in enumerate(CAT_STATES):
 (folder / 'base.svg').write_text(svg(cat()))
 (folder / 'atlas.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="3072" height="1792">{"".join(groups)}</svg>')
 write_pack(folder, {
-    'schemaVersion': 1, 'id': 'goudan', 'name': '狗蛋',
+    'schemaVersion': 1, 'id': 'dogegg', 'name': '狗蛋',
     'description': '绿眼睛、粉鼻头、白手套，带点小帅气的黑白男猫',
     'size': {'width': 256, 'height': 256},
     'assets': {'atlas': {'src': './atlas.png', 'width': 3072, 'height': 1792}, 'portrait': {'src': './base.png', 'width': 256, 'height': 256}},
@@ -95,7 +95,7 @@ for row, state in enumerate(CAT_STATES):
         color = '#45414f' if col < 3 else '#e1e8d9'
         review += [f'<text x="{x+10}" y="{y+20}" font-family="sans-serif" font-size="12" fill="{color}">{state} / {size}px</text>']
         review += [f'<g transform="translate({x+(170-size)/2} {y+35+(144-size)/2}) scale({size/256})">{cat(state, 0 if state == "idle" else 5)}</g>']
-review_dir = ROOT.parent / 'artwork' / 'goudan'
+review_dir = ROOT.parent / 'artwork' / 'dogegg'
 review_dir.mkdir(parents=True, exist_ok=True)
 (review_dir / 'review.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="1330">{"".join(review)}</svg>')
 motion_review = ['<rect width="1080" height="800" fill="#faf9f5"/>']
@@ -114,4 +114,7 @@ def reference_pose(state, frame):
     '<rect width="1254" height="1254" fill="#fffdf3"/>'
     + reference_pose('idle', 0) + '<g transform="translate(639 0)">'
     + reference_pose('notification', 5) + '</g></svg>')
-print('Generated Boniu, Bolo, Mimo and Goudan character packs.')
+print('Generated Boniu, Bolo, Mimo and Dogegg character packs.')
+
+from mobility import generate as generate_mobility
+generate_mobility(ROOT)

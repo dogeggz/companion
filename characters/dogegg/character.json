@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "bolo",
-  "name": "波洛 Bolo",
-  "description": "短翘鬃毛、薄荷领巾的小男马",
+  "id": "dogegg",
+  "name": "狗蛋",
+  "description": "绿眼睛、粉鼻头、白手套，带点小帅气的黑白男猫",
   "size": {
     "width": 256,
     "height": 256
@@ -165,7 +165,7 @@
             256,
             256
           ],
-          "duration": 180
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -185,7 +185,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -195,7 +195,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 260
         },
         {
           "asset": "atlas",
@@ -205,7 +205,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 350
         },
         {
           "asset": "atlas",
@@ -215,7 +215,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 420
         },
         {
           "asset": "atlas",
@@ -225,7 +225,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 260
         },
         {
           "asset": "atlas",
@@ -235,7 +235,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 400
         },
         {
           "asset": "atlas",
@@ -245,7 +245,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 200
         },
         {
           "asset": "atlas",
@@ -255,7 +255,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -275,7 +275,7 @@
             256,
             256
           ],
-          "duration": 500
+          "duration": 180
         }
       ],
       "loop": true,
@@ -291,7 +291,7 @@
             256,
             256
           ],
-          "duration": 180
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -301,7 +301,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 70
         },
         {
           "asset": "atlas",
@@ -311,7 +311,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 90
         },
         {
           "asset": "atlas",
@@ -321,7 +321,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -331,7 +331,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 90
         },
         {
           "asset": "atlas",
@@ -341,7 +341,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 110
         },
         {
           "asset": "atlas",
@@ -351,7 +351,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 90
         },
         {
           "asset": "atlas",
@@ -361,7 +361,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 130
         },
         {
           "asset": "atlas",
@@ -371,7 +371,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 90
         },
         {
           "asset": "atlas",
@@ -381,7 +381,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 90
         },
         {
           "asset": "atlas",
@@ -401,7 +401,7 @@
             256,
             256
           ],
-          "duration": 500
+          "duration": 180
         }
       ],
       "loop": false,
@@ -543,7 +543,7 @@
             256,
             256
           ],
-          "duration": 180
+          "duration": 60
         },
         {
           "asset": "atlas",
@@ -553,7 +553,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 70
         },
         {
           "asset": "atlas",
@@ -563,7 +563,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 70
         },
         {
           "asset": "atlas",
@@ -573,7 +573,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -583,7 +583,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -593,7 +593,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 220
         },
         {
           "asset": "atlas",
@@ -603,7 +603,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -613,7 +613,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 150
         },
         {
           "asset": "atlas",
@@ -623,7 +623,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -633,7 +633,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -643,7 +643,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -653,7 +653,7 @@
             256,
             256
           ],
-          "duration": 500
+          "duration": 180
         }
       ],
       "loop": false,
@@ -669,7 +669,7 @@
             256,
             256
           ],
-          "duration": 180
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -679,7 +679,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 120
         },
         {
           "asset": "atlas",
@@ -689,7 +689,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 140
         },
         {
           "asset": "atlas",
@@ -699,7 +699,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 180
         },
         {
           "asset": "atlas",
@@ -709,7 +709,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 260
         },
         {
           "asset": "atlas",
@@ -719,7 +719,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 650
         },
         {
           "asset": "atlas",
@@ -729,7 +729,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 240
         },
         {
           "asset": "atlas",
@@ -739,7 +739,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 260
         },
         {
           "asset": "atlas",
@@ -749,7 +749,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 200
         },
         {
           "asset": "atlas",
@@ -759,7 +759,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 180
         },
         {
           "asset": "atlas",
@@ -769,7 +769,7 @@
             256,
             256
           ],
-          "duration": 100
+          "duration": 160
         },
         {
           "asset": "atlas",
@@ -779,7 +779,7 @@
             256,
             256
           ],
-          "duration": 500
+          "duration": 240
         }
       ],
       "loop": false,
@@ -805,7 +805,7 @@
             256,
             256
           ],
-          "duration": 120
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -815,7 +815,7 @@
             256,
             256
           ],
-          "duration": 120
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -825,7 +825,7 @@
             256,
             256
           ],
-          "duration": 300
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -835,7 +835,7 @@
             256,
             256
           ],
-          "duration": 600
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -845,7 +845,7 @@
             256,
             256
           ],
-          "duration": 300
+          "duration": 1000
         },
         {
           "asset": "atlas",
@@ -855,7 +855,7 @@
             256,
             256
           ],
-          "duration": 120
+          "duration": 100
         },
         {
           "asset": "atlas",
@@ -865,11 +865,51 @@
             256,
             256
           ],
-          "duration": 300
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            1536,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            1536,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            1536,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            1536,
+            256,
+            256
+          ],
+          "duration": 500
         }
       ],
       "loop": false,
-      "poster": 4
+      "poster": 5
     },
     "walk-n": {
       "frames": [

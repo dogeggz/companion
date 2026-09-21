@@ -17,6 +17,11 @@
       "src": "./base.png",
       "width": 256,
       "height": 256
+    },
+    "mobility": {
+      "src": "./mobility.png",
+      "width": 2048,
+      "height": 256
     }
   },
   "base": {
@@ -865,6 +870,1113 @@
       ],
       "loop": false,
       "poster": 4
+    },
+    "walk-n": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-ne": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-e": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-se": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-s": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-sw": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-w": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "walk-nw": {
+      "frames": [
+        {
+          "asset": "atlas",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 1800
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2048,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2304,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2560,
+            0,
+            256,
+            256
+          ],
+          "duration": 100
+        },
+        {
+          "asset": "atlas",
+          "rect": [
+            2816,
+            0,
+            256,
+            256
+          ],
+          "duration": 900
+        }
+      ],
+      "loop": true,
+      "poster": 0
+    },
+    "peek": {
+      "frames": [
+        {
+          "asset": "mobility",
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        },
+        {
+          "asset": "mobility",
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "duration": 240
+        }
+      ],
+      "loop": true,
+      "poster": 0
     }
+  },
+  "presentation": {
+    "movement": {
+      "n": "walk-n",
+      "ne": "walk-ne",
+      "e": "walk-e",
+      "se": "walk-se",
+      "s": "walk-s",
+      "sw": "walk-sw",
+      "w": "walk-w",
+      "nw": "walk-nw"
+    },
+    "peek": "peek"
   }
 }

@@ -10,7 +10,7 @@ a layered face display and fully drawn hands. Both ponies use clean mouth
 lines without a tinted muzzle patch or nostril dots. No external image service or
 third-party stock asset was used for those three characters.
 
-Goudan (狗蛋) is based on a cat photograph supplied by the user. Its cartoon
+Dogegg (狗蛋) is based on a cat photograph supplied by the user. Its cartoon
 design reference was created with OpenAI's built-in imagegen tool, then adapted
 into the original editable vector rig in `artwork/cat.py`. The user's requested
 design has an entirely pink nose, pink paw pads, no blush, and two articulated

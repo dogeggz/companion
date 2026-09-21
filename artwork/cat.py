@@ -1,6 +1,6 @@
-"""Goudan: vector contours traced in the selected reference's coordinate space.
+"""Dogegg: vector contours traced in the selected reference's coordinate space.
 
-The rest pose uses the LEFT cat in artwork/goudan/design-reference.png.
+The rest pose uses the LEFT cat in artwork/dogegg/design-reference.png.
 The wave pose uses the RIGHT cat translated 639px left. Keep the reference's
 wide cheeks, large inward-looking eyes, low ears, rounded boots and long bib.
 Coordinates stay in source-image pixels; one common transform fits the rig to
@@ -131,7 +131,7 @@ def cat(state='idle', frame=0):
                 look += [0, -4, -9, -13, -13, 0, 10, 10, 0, -6, -3, 0][frame]
             py = y - (12*g if state == 'thinking' else 0) + (9*g if sad else 0)
             if state == 'thinking':
-                eye_clip = f'goudan-thinking-eye-{frame}-{side}'
+                eye_clip = f'dogegg-thinking-eye-{frame}-{side}'
                 out += [f'<defs><clipPath id="{eye_clip}"><ellipse cx="{x}" cy="{y}" rx="43" ry="50" transform="rotate({angle} {x} {y})"/></clipPath></defs><g clip-path="url(#{eye_clip})">']
             out += [ellipse(x+look, py, 20-6*g if state == 'warning' else 20, 37, '#151719')]
             out += [ellipse(x+look, py-22, 7, 8, '#ffffff')]

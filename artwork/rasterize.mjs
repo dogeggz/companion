@@ -4,10 +4,10 @@ import { readFile, writeFile } from 'node:fs/promises'
 const browser = await chromium.launch({ headless: true })
 try {
   const page = await browser.newPage()
-  const paths = ['boniu', 'bolo', 'goudan'].flatMap(character => ['base', 'atlas'].map(asset => `../characters/${character}/${asset}`))
-  paths.push('./goudan/review')
-  paths.push('./goudan/implemented-poses')
-  paths.push('./goudan/motion-review')
+  const paths = ['boniu', 'bolo', 'dogegg'].flatMap(character => ['base', 'atlas', 'mobility'].map(asset => `../characters/${character}/${asset}`))
+  paths.push('./dogegg/review')
+  paths.push('./dogegg/implemented-poses')
+  paths.push('./dogegg/motion-review')
   for (const assetPath of paths) {
     const path = new URL(assetPath, import.meta.url)
     const svg = await readFile(`${path.pathname}.svg`, 'utf8')
