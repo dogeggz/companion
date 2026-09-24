@@ -1,6 +1,6 @@
 {
   "name": "@companion-kit/character-bolo",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "description": "波洛 Bolo sprite pack for Companion",
   "exports": {
@@ -15,6 +15,7 @@
     "index.js",
     "index.d.ts",
     "character.json",
+    "NOTICE.md",
     "atlas.png",
     "base.png",
     "mobility.png",

@@ -1,6 +1,6 @@
 {
   "name": "@companion-kit/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Portable sprite companions, character packs and agent events for the web",
   "type": "module",
   "main": "./dist/index.js",
@@ -49,7 +49,8 @@
     "test:browser": "bun tests/browser.mjs",
     "test:package": "bun tests/package.mjs",
     "artwork": "python3 artwork/generate.py && bun artwork/rasterize.mjs",
-    "pack:all": "bun scripts/pack.mjs"
+    "pack:all": "bun scripts/pack.mjs",
+    "release:prepare": "bun scripts/release.mjs"
   },
   "peerDependencies": {
     "react": ">=18",

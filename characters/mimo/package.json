@@ -1,6 +1,6 @@
 {
   "name": "@companion-kit/character-mimo",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "type": "module",
   "description": "米莫 Mimo sprite pack for Companion",
   "exports": {
@@ -15,6 +15,7 @@
     "index.js",
     "index.d.ts",
     "character.json",
+    "NOTICE.md",
     "frames"
   ],
   "sideEffects": false
