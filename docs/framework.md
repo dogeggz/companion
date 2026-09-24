@@ -16,8 +16,7 @@ framework. Adding tools does not require modifying the renderer or its reactions
 The server package is optional and is not bundled into browser code. The initial
 server implementation is Python; a Node/Go/Java backend can serve the same SSE
 protocol or call a Python service. A browser package alone cannot execute trusted
-server tools. Neither package has been published to a public registry yet; actual
-`.tgz` and `.whl` files can be installed locally or supplied in releases.
+server tools. Install `.tgz` and `.whl` artifacts from [GitHub Releases](https://github.com/dogeggz/companion/releases). They are ordinary package artifacts, not npm/PyPI registry publications; local files work too.
 
 ## Browser integration
 

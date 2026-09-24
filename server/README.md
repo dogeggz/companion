@@ -1,7 +1,13 @@
 # Companion Harness (Python)
 
-Install with `uv add companion-harness` once published, or
-`uv add ./vendor/companion_harness-0.1.0-py3-none-any.whl` before publication.
+Install the optional backend package from the GitHub Release:
+
+```sh
+uv add https://github.com/dogeggz/companion/releases/download/v0.6.1/companion_harness-0.1.0-py3-none-any.whl
+```
+
+It is not published to PyPI. An offline copy works with
+`uv add ./vendor/companion_harness-0.1.0-py3-none-any.whl`.
 Local development: `uv add --editable /path/to/companion/server`.
 This package has no framework, database, character, platform or model credentials.
 
